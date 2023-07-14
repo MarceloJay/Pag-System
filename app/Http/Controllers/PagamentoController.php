@@ -39,7 +39,7 @@ class PagamentoController extends Controller
 
     public function create()
     {
-        $userLogged = User::where('id', session()->get('userId'))->first();
+        $userLogged = User::where('id', auth()->user()->id)->first();
         $clienteLog = Cliente::where('email', $userLogged->email)->first();
         $clientes = Cliente::all();
         return view('pagamentos.create', compact('clientes', 'clienteLog'));
@@ -154,7 +154,7 @@ class PagamentoController extends Controller
                 $asaasAdapter = new AsaasAdapter();
                 $response = $asaasAdapter->sendRequest('POST', 'payments/'.$pagamento->asaas_id.'/identificationField', $pagamento->asaas_id);
                 $response = json_decode($response);
-                // dd($response);
+                dd($response);
                 $pgtoBoleto = PgtoBoleto::where('payment', $pagamento->id)->first();
                 return view('pagamentos.show', compact('pagamento', 'pgtoBoleto','response'));
             case 'CREDIT_CARD':
