@@ -41,10 +41,10 @@ Execute o comando `$ php artisan migrate` para criar as tabelas necessárias no 
 
 # Acesso ao Sistema como Administrador.
 >No sistema foi criado uma classe UserSeeder.php que criara um usuario Administrador:
-![Pag System](https://github.com/MarceloJay/Pag-System/blob/dev/public/images/seeder.png)
-> onde terá acesso a todos pagamentos e todos clientes , diferente 
+>onde terá acesso a todos pagamentos e todos clientes , diferente 
 >de quando se regitra na pagina login, que será criado usuario cliente.
 >Para executar o seeder e criar o usuário "Admin", execute o seguinte comando no terminal: `$ php artisan db:seed --class=UserSeeder`
+<img src="https://github.com/MarceloJay/Pag-System/blob/dev/public/images/seeder.png" alt="Pag System" width="600" height="300" />
  
 ## Só faça os passo a baixo se quiser usar esse projeto gerando cobrança com sua conta no Asaas.
 
@@ -61,8 +61,8 @@ Execute o comando `$ php artisan migrate` para criar as tabelas necessárias no 
 >fazer um sistema funcional.
 
 
-> Se você verificar no .env tem a variável ASAAS_BASE_URI que é o endereço do endpoint para envio de requisições também tem a variável ASAAS_API_KEY que esta setado 
-> com api key da minha conta , se preferir vc pode criar sua conta no portal Asaas para testa seguindo os passos a baixo obter a API key.
+>Se você verificar no .env tem a variável ASAAS_BASE_URI que é o endereço do endpoint para envio de requisições também tem a variável ASAAS_API_KEY que esta setado 
+>com api key da minha conta , se preferir vc pode criar sua conta no portal Asaas para testa seguindo os passos a baixo obter a API key.
 ## Credenciais de Sandbox:
 >Crie uma conta no Asaas Sandbox( https://sandbox.asaas.com/ ), na parte de Configuração de Conta->Integrações você irá conseguir a API Key de Sandbox para iniciar a integração.
 
