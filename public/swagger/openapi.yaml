@@ -1,0 +1,45 @@
+openapi: 3.0.0
+info:
+  title: 'Nome da API'
+  description: 'Descrição da API'
+  version: 1.0.0
+paths:
+  /api/users:
+    get:
+      tags:
+        - Users
+      summary: 'Get a list of users'
+      operationId: getUsersList
+      responses:
+        '200':
+          description: 'Successful operation'
+  /api/user-profiile:
+    get:
+      tags:
+        - Users
+      summary: 'Get a Logged user'
+      description: 'Get the authenticated User.'
+      operationId: getUserProfile
+      responses:
+        '200':
+          description: 'Successful operation'
+  '/api/users/{id}':
+    get:
+      tags:
+        - User
+      summary: 'Get user by Id'
+      operationId: getUser
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'User ID'
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: 'Successful operation'
+        '404':
+          description: 'User not found'
