@@ -16,7 +16,20 @@ use Illuminate\Support\Facades\Auth;
 
 class PagamentoController extends Controller
 {
-    
+    /**
+     * Exibir lista de pagamentos
+     *
+     * Esta função é responsável por exibir uma lista de pagamentos.
+     * A lista de pagamentos exibida depende do tipo de usuário autenticado.
+     * Se o usuário autenticado for um administrador, a função retorna todos os pagamentos ordenados por data de vencimento.
+     * Se o usuário autenticado for um cliente, a função retorna os pagamentos relacionados a esse cliente, ordenados por data de vencimento.
+     * Além disso, para cada pagamento, a função adiciona o cliente correspondente.
+     *
+     * Autor: Marcelo Ferreira
+     * Atualizado em: 13/07/2023
+     *
+     * @return \Illuminate\View\View A visualização 'pagamentos.index' com a lista de pagamentos.
+     */
     public function index()
     {
         $pagamentos = null;
@@ -36,7 +49,19 @@ class PagamentoController extends Controller
         return view('pagamentos.index', compact('pagamentos'));
     }
 
-
+    /**
+     * Criar Pagamento
+     *
+     * Esta função é responsável por exibir o formulário de criação de pagamento.
+     * Ela recupera o usuário autenticado e o cliente associado a esse usuário.
+     * Além disso, recupera todos os clientes cadastrados.
+     * Em seguida, retorna a visualização 'pagamentos.create', passando os clientes e o cliente associado ao usuário como dados compactados.
+     *
+     * Autor: Marcelo Ferreira
+     * Atualizado em: 13/07/2023
+     *
+     * @return \Illuminate\View\View A visualização 'pagamentos.create' com o formulário de criação de pagamento e os clientes disponíveis.
+     */
     public function create()
     {
         $userLogged = User::where('id', auth()->user()->id)->first();
@@ -45,6 +70,28 @@ class PagamentoController extends Controller
         return view('pagamentos.create', compact('clientes', 'clienteLog'));
     }
 
+    /**
+     * Armazenar Pagamento
+     *
+     * Esta função é responsável por armazenar um novo pagamento.
+     * Ela recebe um objeto Request contendo os dados do pagamento.
+     * A função verifica o tipo de pagamento com base no campo 'billingType' do Request.
+     * Dependendo do tipo de pagamento (BOLETO ou CREDIT_CARD), a função cria um registro na tabela correspondente 
+     * (PgtoBoleto ou PgtoCartao).
+     * Além disso, a função envia uma requisição POST para criar um novo pagamento usando o adaptador AsaasAdapter.
+     * Em seguida, associa o ID retornado pela API do Asaas ao pagamento correspondente no banco de dados.
+     * Por fim, redireciona para a rota 'pagamentos.index' com uma mensagem de sucesso em caso de sucesso.
+     * Em caso de erro, redireciona para a rota 'pagamentos.create' com uma mensagem de erro específica, se houver, 
+     * ou uma mensagem genérica de erro.
+     *
+     * Autor: Marcelo Ferreira
+     * Atualizado em: 13/07/2023
+     *
+     * @param Request $request O objeto Request contendo os dados do pagamento a ser armazenado.
+     *
+     * @return \Illuminate\Http\RedirectResponse O redirecionamento para a rota 'pagamentos.index' com uma mensagem de sucesso em caso de sucesso.
+     * @return \Illuminate\Http\RedirectResponse O redirecionamento para a rota 'pagamentos.create' com uma mensagem de erro em caso de erro.
+     */
     public function store(Request $request)
     {
         try {
@@ -143,6 +190,22 @@ class PagamentoController extends Controller
         }
     }
 
+    /**
+     * Exibir detalhes do pagamento
+     *
+     * Esta função é responsável por exibir os detalhes de um pagamento específico.
+     * Ela recebe um objeto Pagamento que representa o pagamento a ser mostrado.
+     * A função adiciona o cliente associado ao pagamento no campo 'cliente' do objeto Pagamento.
+     * Dependendo do tipo de pagamento (BOLETO, CREDIT_CARD ou PIX), a função recupera dados adicionais relacionados ao tipo de pagamento.
+     * Em seguida, retorna a visualização 'pagamentos.show' com os detalhes do pagamento e os dados adicionais específicos do tipo de pagamento.
+     *
+     * Autor: Marcelo Ferreira
+     * Atualizado em: 13/07/2023
+     *
+     * @param Pagamento $pagamento O objeto Pagamento que representa o pagamento a ser mostrado.
+     *
+     * @return \Illuminate\View\View A visualização 'pagamentos.show' com os detalhes do pagamento e os dados adicionais específicos do tipo de pagamento.
+     */
     public function show(Pagamento $pagamento)
     {
         
@@ -169,6 +232,22 @@ class PagamentoController extends Controller
         }
     }
 
+    /**
+     * Editar Pagamento
+     *
+     * Esta função é responsável por exibir o formulário de edição para um pagamento específico.
+     * Ela recebe um objeto Pagamento que representa o pagamento a ser editado.
+     * A função recupera todos os clientes cadastrados.
+     * Dependendo do tipo de pagamento (BOLETO, CREDIT_CARD ou outro), a função recupera os dados adicionais relacionados ao tipo de pagamento (PgtoBoleto ou PgtoCartao).
+     * Em seguida, retorna a visualização 'pagamentos.edit' com o formulário de edição do pagamento, os dados adicionais específicos do tipo de pagamento e os clientes disponíveis.
+     *
+     * Autor: Marcelo Ferreira
+     * Atualizado em: 13/07/2023
+     *
+     * @param Pagamento $pagamento O objeto Pagamento que representa o pagamento a ser editado.
+     *
+     * @return \Illuminate\View\View A visualização 'pagamentos.edit' com o formulário de edição do pagamento, os dados adicionais específicos do tipo de pagamento e os clientes disponíveis.
+     */
     public function edit(Pagamento $pagamento)
     {
         $clientes = Cliente::all();
@@ -188,6 +267,33 @@ class PagamentoController extends Controller
         }
     }
 
+    /**
+     * Atualizar Pagamento
+     *
+     * Esta função é responsável por atualizar um pagamento existente.
+     * Ela recebe um objeto Request contendo os dados atualizados do pagamento e 
+     * um objeto Pagamento que representa o pagamento a ser atualizado.
+     * A função valida os campos obrigatórios no Request.
+     * Em seguida, recupera o cliente associado ao pagamento com base no campo 'customer' do Request e 
+     * cria um array $pagamentoRequest com os dados do pagamento original.
+     * A função atualiza o pagamento no banco de dados usando o objeto Pagamento e os dados do Request.
+     * Dependendo do tipo de pagamento (BOLETO ou CREDIT_CARD), a função atualiza os dados específicos 
+     * do tipo de pagamento nas tabelas PgtoBoleto ou PgtoCartao.
+     * A função envia uma requisição POST para atualizar o pagamento na API do Asaas usando o adaptador AsaasAdapter.
+     * Em seguida, salva as alterações nos modelos PgtoBoleto e PgtoCartao, se aplicável.
+     * Por fim, redireciona para a rota 'pagamentos.index' com uma mensagem de sucesso em caso de sucesso.
+     * Em caso de erro, redireciona para a rota 'pagamentos.index' com uma mensagem de erro específica, 
+     * se houver, ou uma mensagem genérica de erro.
+     *
+     * Autor: Marcelo Ferreira
+     * Atualizado em: 13/07/2023
+     *
+     * @param Request $request O objeto Request contendo os dados atualizados do pagamento.
+     * @param Pagamento $pagamento O objeto Pagamento que representa o pagamento a ser atualizado.
+     *
+     * @return \Illuminate\Http\RedirectResponse O redirecionamento para a rota 'pagamentos.index' com uma mensagem de sucesso em caso de sucesso.
+     * @return \Illuminate\Http\RedirectResponse O redirecionamento para a rota 'pagamentos.index' com uma mensagem de erro em caso de erro.
+     */
     public function update(Request $request, Pagamento $pagamento)
     {
         $request->validate([
@@ -307,6 +413,27 @@ class PagamentoController extends Controller
         }
     }
 
+    /**
+     * Executar Pagamento com Cartão de Crédito
+     *
+     * Esta função é responsável por executar o pagamento com cartão de crédito.
+     * Ela recebe um objeto Pagamento que representa o pagamento a ser executado.
+     * Dependendo do tipo de pagamento (CREDIT_CARD), a função cria um array 
+     * $pagamentoRequest com os dados do cartão de crédito e do titular do cartão.
+     * A função envia uma requisição POST para executar o pagamento 
+     * com cartão de crédito na API do Asaas usando o adaptador AsaasAdapter.
+     * Em caso de sucesso, redireciona para a rota 'pagamentos.index' com uma mensagem de sucesso.
+     * Em caso de erro, redireciona para a rota 'pagamentos.index' com uma mensagem de erro específica, 
+     * se houver, ou uma mensagem genérica de erro.
+     *
+     * Autor: Marcelo Ferreira
+     * Atualizado em: 13/07/2023
+     *
+     * @param Pagamento $pagamento O objeto Pagamento que representa o pagamento a ser executado.
+     *
+     * @return \Illuminate\Http\RedirectResponse O redirecionamento para a rota 'pagamentos.index' com uma mensagem de sucesso em caso de sucesso.
+     * @return \Illuminate\Http\RedirectResponse O redirecionamento para a rota 'pagamentos.index' com uma mensagem de erro em caso de erro.
+     */
     public function Executar(Pagamento $pagamento)
     {
         try { 
@@ -348,6 +475,25 @@ class PagamentoController extends Controller
         }
     }
 
+    /**
+     * Excluir Pagamento
+     *
+     * Esta função é responsável por excluir um pagamento.
+     * Ela recebe um objeto Pagamento que representa o pagamento a ser excluído.
+     * A função envia uma requisição DELETE para excluir o pagamento na API do Asaas usando o adaptador AsaasAdapter.
+     * Em seguida, dependendo do tipo de pagamento (BOLETO ou CREDIT_CARD), a função exclui os registros associados nas tabelas PgtoBoleto ou PgtoCartao.
+     * Por fim, exclui o registro do pagamento na tabela Pagamento.
+     * Em caso de sucesso, redireciona para a rota 'pagamentos.index' com uma mensagem de sucesso.
+     * Em caso de erro, redireciona para a rota 'pagamentos.index' com uma mensagem de erro específica, se houver, ou uma mensagem genérica de erro.
+     *
+     * Autor: Marcelo Ferreira
+     * Atualizado em: 13/07/2023
+     *
+     * @param Pagamento $pagamento O objeto Pagamento que representa o pagamento a ser excluído.
+     *
+     * @return \Illuminate\Http\RedirectResponse O redirecionamento para a rota 'pagamentos.index' com uma mensagem de sucesso em caso de sucesso.
+     * @return \Illuminate\Http\RedirectResponse O redirecionamento para a rota 'pagamentos.index' com uma mensagem de erro em caso de erro.
+     */
     public function destroy(Pagamento $pagamento)
     {
         $response = null;
