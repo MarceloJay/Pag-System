@@ -39,15 +39,22 @@ Execute o comando `$ php artisan migrate` para criar as tabelas necessárias no 
 **Pronto! Agora você pode explorar e utilizar o projeto Laravel localmente.**
 > Certifique-se de estudar a documentação oficial do Laravel para obter mais informações detalhadas sobre o desenvolvimento e execução de projetos Laravel.
 
+# Acesso ao Sistema como Administrador.
+>No sistema foi criado uma classe UserSeeder.php que criara um usuario Administrador:
+![Pag System](https://github.com/MarceloJay/Pag-System/blob/dev/public/images/seeder.png)
+> onde terá acesso a todos pagamentos e todos clientes , diferente 
+>de quando se regitra na pagina login, que será criado usuario cliente.
+>Para executar o seeder e criar o usuário "Admin", execute o seguinte comando no terminal: `$ php artisan db:seed --class=UserSeeder`
+ 
 ## Só faça os passo a baixo se quiser usar esse projeto gerando cobrança com sua conta no Asaas.
 
 ## Para fazer pagamentos integrado ao ambiente de homologação do Asaas.
 >Eu poderia ter instalado as dependencias informando no composer.json:
-![Swagger](https://github.com/MarceloJay/Pag-System/blob/dev/public/images/composer.png)
+![Pag System](https://github.com/MarceloJay/Pag-System/blob/dev/public/images/composer.png)
 
 
 >e também informando a dependência na tag require:
-![Swagger](https://github.com/MarceloJay/Pag-System/blob/dev/public/images/require.png)
+![Pag System](https://github.com/MarceloJay/Pag-System/blob/dev/public/images/require.png)
 
 
 >assim ficaria tudo mais fácil e rápido, mas preferi fazer essa integração na mão , para poder de alguma forma, mostrar um pouco mais da minha capacidade de
