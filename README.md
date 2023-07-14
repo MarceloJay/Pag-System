@@ -63,10 +63,10 @@ Execute o comando `$ php artisan migrate` para criar as tabelas necessárias no 
 
 >Se você verificar no .env tem a variável ASAAS_BASE_URI que é o endereço do endpoint para envio de requisições também tem a variável ASAAS_API_KEY que esta setado 
 >com api key da minha conta , se preferir vc pode criar sua conta no portal Asaas para testa seguindo os passos a baixo obter a API key.
-## Credenciais de Sandbox:
+## Credenciais de Sandbox.
 >Crie uma conta no Asaas Sandbox( https://sandbox.asaas.com/ ), na parte de Configuração de Conta->Integrações você irá conseguir a API Key de Sandbox para iniciar a integração.
 
-
+## Sistema de Pagamentos :
 ![Pag System](https://github.com/MarceloJay/Pag-System/blob/dev/public/images/Welcome.png)
 ![Pag System](https://github.com/MarceloJay/Pag-System/blob/dev/public/images/listapag.png)
 ![Pag System](https://github.com/MarceloJay/Pag-System/blob/dev/public/images/listaclient.png)
@@ -77,7 +77,9 @@ Execute o comando `$ php artisan migrate` para criar as tabelas necessárias no 
 
  
 > É usado JWT para autenticar solicitações de usuários,  
-> conforme estipulados em routes.  
+> conforme estipulados em routes.
+> usei AI para gerar uma logo.
+
 
 
   
