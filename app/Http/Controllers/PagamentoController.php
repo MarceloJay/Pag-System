@@ -51,7 +51,7 @@ class PagamentoController extends Controller
             $cliente = Cliente::find($request['customer']);
             $request['customer'] = $cliente->customer;  
             $pagamento = Pagamento::create($request->all());
-            // dd($pagamento->toArray());
+            
             switch ($request['billingType']) {
                 case 'BOLETO':
                     $pgtoBoleto = new PgtoBoleto();
@@ -150,11 +150,9 @@ class PagamentoController extends Controller
         
         switch ($pagamento->billingType) {
             case 'BOLETO':
-                // dd($pagamento->asaas_id);
                 $asaasAdapter = new AsaasAdapter();
                 $response = $asaasAdapter->sendRequest('POST', 'payments/'.$pagamento->asaas_id.'/identificationField', $pagamento->asaas_id);
                 $response = json_decode($response);
-                dd($response);
                 $pgtoBoleto = PgtoBoleto::where('payment', $pagamento->id)->first();
                 return view('pagamentos.show', compact('pagamento', 'pgtoBoleto','response'));
             case 'CREDIT_CARD':
