@@ -64,7 +64,7 @@ Execute o comando `$ php artisan migrate` para criar as tabelas necessárias no 
 ![Pag System](https://github.com/MarceloJay/Pag-System/blob/dev/public/images/listapag.png)
 ![Pag System](https://github.com/MarceloJay/Pag-System/blob/dev/public/images/listaclient.png)
 ![Pag System](https://github.com/MarceloJay/Pag-System/blob/dev/public/images/PagPix.png)
-![Pag System](https://github.com/Mar celoJay/Pag-System/blob/dev/public/images/PagCartao.png)
+![Pag System](https://github.com/MarceloJay/Pag-System/blob/dev/public/images/PagCartao.png)
 ![Pag System](https://github.com/MarceloJay/Pag-System/blob/dev/public/images/PagBoleto.png)
 ![Pag System](https://github.com/MarceloJay/Pag-System/blob/dev/public/images/Login.png)
 
