@@ -39,21 +39,30 @@ Execute o comando `$ php artisan migrate` para criar as tabelas necessárias no 
 **Pronto! Agora você pode explorar e utilizar o projeto Laravel localmente.**
 > Certifique-se de estudar a documentação oficial do Laravel para obter mais informações detalhadas sobre o desenvolvimento e execução de projetos Laravel.
 
+# Acesso ao Sistema como Administrador.
+>No sistema foi criado uma classe UserSeeder.php que criara um usuario Administrador:
+>onde terá acesso a todos pagamentos e todos clientes , diferente 
+>de quando se regitra na pagina login, que será criado usuario cliente.
+>Para executar o seeder e criar o usuário "Admin", execute o seguinte comando no terminal: `$ php artisan db:seed --class=UserSeeder`
+<img src="https://github.com/MarceloJay/Pag-System/blob/dev/public/images/seeder.png" alt="Pag System" width="600" height="300" />
+ 
+## Só faça os passo a baixo se quiser usar esse projeto gerando cobrança com sua conta no Asaas.
+
 ## Para fazer pagamentos integrado ao ambiente de homologação do Asaas.
 >Eu poderia ter instalado as dependencias informando no composer.json:
-![Swagger](https://github.com/MarceloJay/Pag-System/blob/dev/public/images/composer.png)
+![Pag System](https://github.com/MarceloJay/Pag-System/blob/dev/public/images/composer.png)
 
 
->e tbm informando a dependencia na tag require:
-![Swagger](https://github.com/MarceloJay/Pag-System/blob/dev/public/images/require.png)
+>e também informando a dependência na tag require:
+![Pag System](https://github.com/MarceloJay/Pag-System/blob/dev/public/images/require.png)
 
 
->assim ficaria tudo mais facil e rapido, mas preferi fazer essa integração na mão , para poder de alguma forma, mostrar um pouco mais da minha capacidade de
+>assim ficaria tudo mais fácil e rápido, mas preferi fazer essa integração na mão , para poder de alguma forma, mostrar um pouco mais da minha capacidade de
 >fazer um sistema funcional.
 
 
-> Se você vereficar no .env tem a variavel ASAAS_BASE_URI que é o endereco do endpoint para envio de requisicoes tambem tem a variavel ASAAS_API_KEY que esta setado 
-> com api key da minha conta , se preferir vc pode criar sua conta no portal Asaas para testa seguindo os passos a baixo obter a API key.
+>Se você verificar no .env tem a variável ASAAS_BASE_URI que é o endereço do endpoint para envio de requisições também tem a variável ASAAS_API_KEY que esta setado 
+>com api key da minha conta , se preferir vc pode criar sua conta no portal Asaas para testa seguindo os passos a baixo obter a API key.
 ## Credenciais de Sandbox:
 >Crie uma conta no Asaas Sandbox( https://sandbox.asaas.com/ ), na parte de Configuração de Conta->Integrações você irá conseguir a API Key de Sandbox para iniciar a integração.
 
@@ -62,7 +71,7 @@ Execute o comando `$ php artisan migrate` para criar as tabelas necessárias no 
 ![Pag System](https://github.com/MarceloJay/Pag-System/blob/dev/public/images/listapag.png)
 ![Pag System](https://github.com/MarceloJay/Pag-System/blob/dev/public/images/listaclient.png)
 ![Pag System](https://github.com/MarceloJay/Pag-System/blob/dev/public/images/PagPix.png)
-![Pag System](https://github.com/Mar celoJay/Pag-System/blob/dev/public/images/PagCartao.png)
+![Pag System](https://github.com/MarceloJay/Pag-System/blob/dev/public/images/PagCartao.png)
 ![Pag System](https://github.com/MarceloJay/Pag-System/blob/dev/public/images/PagBoleto.png)
 ![Pag System](https://github.com/MarceloJay/Pag-System/blob/dev/public/images/Login.png)
 
