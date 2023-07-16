@@ -30,7 +30,7 @@
                         <tr>
                             <td>{{ $pagamento->id }}</td>
                             <td>{{ $pagamento->cliente->name }}</td>
-                            <td>{{ $pagamento->value }}</td>
+                            <td>R$:{{str_replace('.', ',', $pagamento->value )}}</td>
                             <td>{{ $pagamento->dueDate }}</td>
                             <td>{{ str_replace('_', ' ', $pagamento->billingType) }}</td>
                             <td class="justify-content flex-end text-right">
