@@ -35,7 +35,7 @@
                             <td>{{ str_replace('_', ' ', $pagamento->billingType) }}</td>
                             <td class="justify-content flex-end text-right">
                                 <a href="{{ route('pagamentos.show', $pagamento) }}" class="btn btn-info">Ver</a>
-                                <a href="{{ route('pagamentos.destroy', $pagamento) }}" class="btn btn-primary">Editar</a>
+                                <a href="{{ route('pagamentos.edit', $pagamento) }}" class="btn btn-primary">Editar</a>
                                 <form action="{{ route('pagamentos.destroy', $pagamento) }}" method="POST" style="display: inline">
                                     @csrf
                                     @method('DELETE')
